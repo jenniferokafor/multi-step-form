@@ -1,0 +1,48 @@
+.stepper {
+  background-repeat: no-repeat;
+  width: 274px;
+  height: 568px;
+  margin-right: 100px;
+}
+
+.stepper-items-wrapper {
+  padding: 40px 0 0 32px;
+}
+
+.stepper-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.stepper-item-number {
+  width: 33px;
+  height: 33px;
+  border-radius: 50%;
+  border: 1px solid #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  span {
+    color: #FFFFFF;
+    font-weight: 700;
+    font-size: 14px;
+  }
+}
+
+.stepper-item-text {
+  p {
+    color: #ABBCFF;
+    font-size: 12px;
+    margin-bottom: 3px;
+  }
+
+  span {
+    color: #FFFFFF;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 1px;
+  }
+}
