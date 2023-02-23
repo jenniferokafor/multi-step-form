@@ -34,33 +34,12 @@ export const schema = yup.object().shape({
 })
 
 export const planData = [
-    { icon: arcade, title: 'Arcade', monthlyPrice: '9', yearlyPrice: '90' },
+    { icon: arcade, title: 'Arcade', monthlyPrice: 9, yearlyPrice: 90 },
     {
         icon: advanced,
         title: 'Advanced',
-        monthlyPrice: '12',
-        yearlyPrice: '120',
+        monthlyPrice: 12,
+        yearlyPrice: 120,
     },
-    { icon: pro, title: 'Pro', monthlyPrice: '15', yearlyPrice: '150' },
-]
-
-export const addOnsData = [
-    {
-        title: 'Online service',
-        description: 'Access to multiplayer games',
-        monthlyPrice: '1',
-        yearlyPrice: '10',
-    },
-    {
-        title: 'Larger storage',
-        description: 'Extra 1TB of cloud save',
-        monthlyPrice: '2',
-        yearlyPrice: '20',
-    },
-    {
-        title: 'Customizable profile',
-        description: 'Custom theme on your profile',
-        monthlyPrice: '2',
-        yearlyPrice: '20',
-    },
+    { icon: pro, title: 'Pro', monthlyPrice: 15, yearlyPrice: 150 },
 ]

@@ -6,16 +6,41 @@ import Info from './components/FormSections/Info'
 import Plan from './components/FormSections/Plan'
 import { message } from 'antd'
 import AddOns from './components/FormSections/AddOns'
+import Finishing from './components/FormSections/Finishing'
+import Success from './components/FormSections/Success'
 
 const Form = () => {
     const [step, setStep] = useState(1)
+    const [confirmed, setConfirmed] = useState(false)
     const [inputs, setInputs] = useState({
         fullName: '',
         email: '',
         phone: '',
         plan: '',
         billingCycle: 'Monthly',
-        addOns: [],
+        addOns: [
+            {
+                title: 'Online service',
+                description: 'Access to multiplayer games',
+                monthlyPrice: 1,
+                yearlyPrice: 10,
+                checked: false,
+            },
+            {
+                title: 'Larger storage',
+                description: 'Extra 1TB of cloud save',
+                monthlyPrice: 2,
+                yearlyPrice: 20,
+                checked: false,
+            },
+            {
+                title: 'Customizable profile',
+                description: 'Custom theme on your profile',
+                monthlyPrice: 2,
+                yearlyPrice: 20,
+                checked: false,
+            },
+        ],
     })
     const [errors, setErrors] = useState({})
     const [messageApi, contextHolder] = message.useMessage()
@@ -26,10 +51,17 @@ const Form = () => {
         })
     }
 
+    const StepFourComponent = confirmed ? (
+        <Success />
+    ) : (
+        <Finishing inputs={inputs} changePlan={() => setStep(2)} />
+    )
+
     const formFieldsMapping = {
         1: <Info inputs={inputs} setInputs={setInputs} errors={errors} />,
         2: <Plan inputs={inputs} setInputs={setInputs} />,
         3: <AddOns inputs={inputs} setInputs={setInputs} />,
+        4: StepFourComponent,
     }
 
     const handlePrevClick = () => {
@@ -70,6 +102,14 @@ const Form = () => {
         if (step === 2) {
             validatePlanSelection()
         }
+
+        if (step === 3) {
+            setStep(4)
+        }
+
+        if (step === 4) {
+            setConfirmed(true)
+        }
     }
     return (
         <>
@@ -82,27 +122,41 @@ const Form = () => {
                     </section>
                     {/*form fields section*/}
                     <section className="input-and-select-section">
-                        <h1 className="form-field-heading">
-                            {headingMapping[step]}
-                        </h1>
-                        <p className="form-field-subheading">
-                            {subHeadingMapping[step]}
-                        </p>
+                        {!confirmed && (
+                            <>
+                                <h1 className="form-field-heading">
+                                    {headingMapping[step]}
+                                </h1>
+                                <p className="form-field-subheading">
+                                    {subHeadingMapping[step]}
+                                </p>
+                            </>
+                        )}
                         <div className="form-fields">
                             {formFieldsMapping[step]}
                         </div>
                         <div className="form-buttons">
-                            {step !== 1 && (
-                                <button onClick={() => handlePrevClick()}>
+                            {step !== 1 && !confirmed && (
+                                <button
+                                    onClick={() => handlePrevClick()}
+                                    className="prev-button"
+                                >
                                     Go Back
                                 </button>
                             )}
-                            <button
-                                onClick={() => handleNextClick()}
-                                className="next-button"
-                            >
-                                Next Step
-                            </button>
+                            {!confirmed && (
+                                <button
+                                    onClick={() => handleNextClick()}
+                                    className="next-button"
+                                    style={
+                                        step === 4
+                                            ? { backgroundColor: '#483EFF' }
+                                            : {}
+                                    }
+                                >
+                                    {step === 4 ? 'Confirm' : 'Next Step'}
+                                </button>
+                            )}
                         </div>
                     </section>
                 </div>

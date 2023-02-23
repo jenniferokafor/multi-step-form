@@ -12,7 +12,7 @@ const Plan = ({ inputs, setInputs }) => {
     }
 
     const planClick = item => {
-        setInputs({ ...inputs, plan: item.title })
+        setInputs({ ...inputs, plan: item })
     }
     return (
         <>
@@ -23,7 +23,7 @@ const Plan = ({ inputs, setInputs }) => {
                         className="plan"
                         onClick={() => planClick(plan)}
                         style={
-                            inputs.plan === plan.title
+                            inputs.plan.title === plan.title
                                 ? {
                                       backgroundColor: '#F8F9FF',
                                       border: '1px solid #483EFF',
@@ -61,7 +61,13 @@ const Plan = ({ inputs, setInputs }) => {
                     >
                         Monthly
                     </p>
-                    <Switch defaultChecked onChange={onChange} />
+                    <Switch
+                        onChange={onChange}
+                        checkedChildren="Monthly"
+                        unCheckedChildren="Yearly"
+                        checked={inputs.billingCycle !== 'Monthly'}
+                    />
+
                     <p
                         style={{
                             color:
